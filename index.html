@@ -12,34 +12,46 @@
   </head>
   <body>
 
-    <header class="jumbotron">
-        <h1 class="display-4 text-center">Safe Travels!</h1>
-        <p class="lead text-center">Traveling somewhere new? Check the crime rate in the area so you can select the safest place to stay!</p>
-    </header>
+    <main>
 
-    <div class="card" style="width: 24rem;">
-        <div class="card-body mx-auto">
-            <h5 class="card-title text-center">Search your destination</h5>
-            <p class="card-text">Enter the city and state you're travelling to</p>
-            <div class="form-group col-12">
-                <label for="inputCity">City</label>
-                <input type="text" class="form-control" id="inputCity">
+        <header class="jumbotron mb-0 rounded-0 bg-success text-white">
+            <h1 class="display-4 text-center">Safe Travels!</h1>
+            <p class="lead text-center">Traveling somewhere new? Check the crime rate in the area so you can select the safest place to stay!</p>
+        </header>
+
+        <div class="d-flex"> <!--Using this div to place results next to the input card-->
+
+            <!-- Need to adjust the height; I want to make it no more than the height of the viewport -->
+            <div class="card rounded-0" style="width:24rem; height: 75vh;" id="card">
+                <div class="card-body mx-auto text-center">
+                    <h5 class="card-title text-center">Search your destination</h5>
+                    <p class="card-text">Enter the city and state you're travelling to</p>
+                    <div class="form-group col-12 text-left">
+                        <label for="inputCity">City</label>
+                        <input type="text" class="form-control" id="inputCity">
+                    </div>
+                    <div class="form-group col-12 text-left">
+                        <label for="inputState">State</label>
+                        <select id="inputState" class="form-control">
+                        <option selected>Choose...</option>
+                        <option>...</option>
+                        </select>
+                    </div>
+                    <a href="#" class="btn btn-primary mt-4 mb-3 col-6">Submit</a>
+                    <!-- I'll say for now this can be a placeholder for the map -->
+                    <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+                </div>
             </div>
-            <div class="form-group col-12">
-                <label for="inputState">State</label>
-                <select id="inputState" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
-                </select>
+
+            <div class="mx-auto mt-3">
+                <h2>Showing crime reports for:
+                    <span placeholder="Los Angeles"></span> <!--City name goes here-->
+                </h2>
+                <div id="reports-container"></div> <!--Reports go-->
             </div>
-            <a href="#" class="btn btn-primary">Submit</a>
-            <!-- I'll say for now this can be a placeholder for the map -->
-            <img class="card-img-top" src="..." alt="Card image cap">
+
         </div>
-    </div>
 
-
-
-	<script src="index.js"></script>
+	<script src="script.js"></script>
   </body>
 </html>
