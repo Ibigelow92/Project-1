@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Safe Travels!</title>
+    <!-- I'm not so sure about this; I took this from the documentation
+    on geocoding. URL: https://developers.google.com/maps/documentation/javascript/examples/geocoding-simple#maps_geocoding_simple-html -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <!-- I'm not married to bootstrap 4.0; I just wanted to see what I could do here.
     If any of you find a better CSS library, that would be awesome too! -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -22,36 +25,43 @@
         <div class="content-div d-flex"> <!--Using this div to place results next to the input card-->
             <!-- I'm thinking of making the input card stack on top of the results divs at smaller viewport -->
             <!-- Need to adjust the height; I want to make it no more than the height of the viewport -->
-            <div class="card rounded-0 col-4" style="height: 75vh;" id="card">
-                <div class="card-body mx-auto text-center">
+            <div class="card rounded-0 col-4" style="height: 100vh;" id="card">
+                <div class="card-body mx-auto text-center col-12">
                     <h5 class="card-title text-center">Search your destination</h5>
-                    <p class="card-text">Enter the city and state you're travelling to</p>
-                    <div class="form-group col-12 text-left">
+                    <p class="card-text">Enter the zip code of your destination</p>
+                    <!-- <div class="form-group col-12 text-left">
                         <label for="inputCity">City</label>
                         <input type="text" class="form-control" id="inputCity">
-                    </div>
-                    <div class="form-group col-12 text-left">
+                    </div> -->
+                    <!-- <div class="form-group col-12 text-left">
                         <label for="inputState">State</label>
                         <select id="inputState" class="form-control">
                         <option selected>Choose...</option>
                         <option>...</option>
                         </select>
-                    </div>
-                    <a href="#" class="btn btn-primary mt-4 mb-3 col-6">Submit</a>
+                    </div> -->
+                    <!-- <a href="#" class="btn btn-primary mt-4 mb-3 col-6">Submit</a> -->
                     <!-- I'll say for now this can be a placeholder for the map -->
                     <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+                    <div id="map"></div>
                 </div>
             </div>
 
             <div class="mx-auto mt-3">
                 <h2>Showing crime reports for:
-                    <span placeholder="Los Angeles"></span> <!--City name goes here-->
+                    <span id="location-text" placeholder="Los Angeles"></span> <!--City name goes here-->
                 </h2>
-                <div id="reports-container"></div> <!--Reports go-->
+                <div id="crime-data">
+                    <!-- Appended divs go here -->
+                </div> 
             </div>
 
         </div>
 
 	<script src="script.js"></script>
+    <!-- This one doesn't use my API key and just uses the one in the example. Might have to change it. -->
+    <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+    defer>
+    </script>
   </body>
 </html>
