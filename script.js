@@ -51,9 +51,23 @@ function initMap() {
   map.addListener("click", (e) => {
     geocode({ location: e.latLng });
   });
-  submitButton.addEventListener("click", () =>
+  submitButton.addEventListener("click", () =>{
     geocode({ address: inputText.value })
-  );
+    //This is my best attempt at modifying the crime API to our needs
+    const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '2566f44acbmshc353c19280ffd39p19e170jsn2c683f7c8010',
+      'X-RapidAPI-Host': 'crime-data-by-zipcode-api.p.rapidapi.com'
+    }
+  };
+
+  fetch('https://crime-data-by-zipcode-api.p.rapidapi.com/crime_data?zip=' + inputText.value, options)
+    .then(response => response.json())
+    .then(response => console.log(response))
+    .catch(err => console.error(err));
+  //
+  });
   clearButton.addEventListener("click", () => {
     clear();
   });
@@ -85,3 +99,18 @@ function geocode(request) {
 }
 
 window.initMap = initMap;
+
+//This is the Crime API fetch deal, unmodified
+// const options = {
+// 	method: 'GET',
+// 	headers: {
+// 		'X-RapidAPI-Key': '2566f44acbmshc353c19280ffd39p19e170jsn2c683f7c8010',
+// 		'X-RapidAPI-Host': 'crime-data-by-zipcode-api.p.rapidapi.com'
+// 	}
+// };
+
+// fetch('https://crime-data-by-zipcode-api.p.rapidapi.com/crime_data?zip=94109', options)
+// 	.then(response => response.json())
+// 	.then(response => console.log(response))
+// 	.catch(err => console.error(err));
+
