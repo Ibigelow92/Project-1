@@ -54,19 +54,32 @@ function initMap() {
   submitButton.addEventListener("click", () =>{
     geocode({ address: inputText.value })
     //This is my best attempt at modifying the crime API to our needs
+    const crimeReportEL = document.getElementById("crime-data-p");
     const options = {
     method: 'GET',
     headers: {
       'X-RapidAPI-Key': '2566f44acbmshc353c19280ffd39p19e170jsn2c683f7c8010',
       'X-RapidAPI-Host': 'crime-data-by-zipcode-api.p.rapidapi.com'
-    }
-  };
+      }
+    };
 
-  fetch('https://crime-data-by-zipcode-api.p.rapidapi.com/crime_data?zip=' + inputText.value, options)
-    .then(response => response.json())
-    .then(response => console.log(response))
-    .catch(err => console.error(err));
-  //
+    fetch('https://crime-data-by-zipcode-api.p.rapidapi.com/crime_data?zip=' + inputText.value, options)
+      // .then(response => response.json())
+      // .then(response => console.log(response))
+      //inserted this to try to make the p work
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function(data) {
+        console.log(data)
+        crimeReportEL.innerText = JSON.stringify(data)})
+      //
+      .catch(err => console.error(err));
+
+    //trying to insert the crime report data
+    // crimeReportEL.innerText = JSON.stringify(response);
+    // return response.JSON()
+    //
   });
   clearButton.addEventListener("click", () => {
     clear();
