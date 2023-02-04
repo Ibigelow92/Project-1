@@ -64,27 +64,19 @@ function initMap() {
     };
 
     fetch('https://crime-data-by-zipcode-api.p.rapidapi.com/crime_data?zip=' + inputText.value, options)
-      // .then(response => response.json())
-      // .then(response => console.log(response))
-      //inserted this to try to make the p work
       .then(function (response) {
         return response.json();
       })
       .then(function(data) {
         console.log(data)
         crimeReportEL.innerText = JSON.stringify(data)})
-      //
       .catch(err => console.error(err));
 
-    //trying to insert the crime report data
-    // crimeReportEL.innerText = JSON.stringify(response);
-    // return response.JSON()
-    //
-  });
-  clearButton.addEventListener("click", () => {
-    clear();
-  });
-  clear();
+      });
+      clearButton.addEventListener("click", () => {
+      clear();
+      });
+      clear();
 }
 
 function clear() {
