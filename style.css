@@ -1,3 +1,8 @@
+.content-div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .card {
    background-color: rgb(200, 255, 235);
 }
@@ -13,12 +18,9 @@
  * that contains the map. 
  */
 #map {
-   height: 65%;
+   height: 75%;
  }
  
- /* 
-  * Optional: Makes the sample page fill the window. 
-  */
  html,
  body {
    height: 100%;
@@ -86,16 +88,24 @@
    background-color: rgba(255, 255, 255, 0.95);
    font-size: small;
  }
- 
- /* #instructions {
-   background-color: #fff;
-   border: 0;
-   border-radius: 2px;
-   box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-   margin: 10px;
-   padding: 0 0.5em;
-   font: 400 18px Roboto, Arial, sans-serif;
-   overflow: hidden;
-   padding: 1rem;
-   font-size: medium;
- } */
+
+ /* // Extra small devices (portrait phones, less than 576px) */
+@media screen and (max-width: 767.98px) {
+  #card {
+    height: 300px;
+  }
+}
+
+@media screen and (min-width: 767.98px)  and (max-width: 991.98px) {
+  #card {
+    height: 400px;
+  }
+}
+
+@media screen and (min-width: 991.98px) {
+  #card {
+    height: 500px;
+  }
+}
+
+
