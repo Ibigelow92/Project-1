@@ -66,8 +66,7 @@
    background-color: #1765cc;
  }
  input[type=button].button-secondary {
-   background-color: white;
-   color: #1a73e8;
+   display: none;
  }
  input[type=button].button-secondary:hover {
    background-color: #d2e3fc;
@@ -89,7 +88,19 @@
    font-size: small;
  }
 
+ /* #crime-report-div {
+  justify-content: flex-end;
+ } */
+
  /* // Extra small devices (portrait phones, less than 576px) */
+li {
+  text-align: left;
+  justify-content: left;
+  justify-items: left;
+  align-content: left;
+  align-items: left;
+}
+
 @media screen and (max-width: 767.98px) {
   #card {
     height: 300px;
