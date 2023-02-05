@@ -49,15 +49,19 @@ function storeSearches() {
   localStorage.setItem("searches", JSON.stringify(searches));
 }
 
-myModal.addEventListener("submit", function(event) {
+modal.addEventListener("submit", function(event) {
   event.preventDefault();
   var inputText = searchInput.value.trim();
+  
+  searches.push(searchInput.value);
+  console.log(searches);
 
-  if(input ==="") {
+  if(inputText ==="") {
     return;
   }
 
-  searches.push(input);
+  searches.push(inputText);
+  console.log(searches);
   searchInput.value = "";
 
   storeSearches();
@@ -127,10 +131,12 @@ function initMap() {
   map.addListener("click", (e) => {
     geocode({ location: e.latLng });
   });
+
   submitButton.addEventListener("click", () =>{
     geocode({ address: inputText.value })
     //This is my best attempt at modifying the crime API to our needs
     //
+  
     const crimeReportEL = document.getElementById("crime-data-p");
     //
     const options = {
@@ -163,8 +169,13 @@ function initMap() {
       </ul>
       `
       })
+
       //
       .catch(err => console.error(err));
+
+      event.preventDefault();
+      searches.push(searchInput.value);
+      console.log(searches);
 
       });
       clearButton.addEventListener("click", () => {
