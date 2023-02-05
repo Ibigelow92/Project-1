@@ -20,7 +20,7 @@ function initMap() {
   const submitButton = document.createElement("input");
 
   submitButton.type = "button";
-  submitButton.value = "Geocode";
+  submitButton.value = "Let's go!";
   submitButton.classList.add("button", "button-primary");
 
   const clearButton = document.createElement("input");
@@ -54,7 +54,9 @@ function initMap() {
   submitButton.addEventListener("click", () =>{
     geocode({ address: inputText.value })
     //This is my best attempt at modifying the crime API to our needs
+    //
     const crimeReportEL = document.getElementById("crime-data-p");
+    //
     const options = {
     method: 'GET',
     headers: {
@@ -67,9 +69,25 @@ function initMap() {
       .then(function (response) {
         return response.json();
       })
+      //
       .then(function(data) {
-        console.log(data)
-        crimeReportEL.innerText = JSON.stringify(data)})
+        //console.log(data)
+        //crimeReportEL.innerText = JSON.stringify(data)
+      //var parsedData = JSON.stringify(data)
+      console.log(data)
+      
+      crimeReportEL.innerHTML=
+      `
+      <ul>
+      <li>Overall Crime Grade: ${data.Overall['Overall Crime Grade']}</li>
+      <li>Violent Crime Grade: ${data.Overall['Violent Crime Grade']}</li>
+      <li>Property Crime Grade: ${data.Overall['Property Crime Grade']}</li>
+      <li>Other Crime Grade: ${data.Overall['Other Crime Grade']}</li>
+      <li>Fact: ${data.Overall['Fact']}</li>    
+      </ul>
+      `
+      })
+      //
       .catch(err => console.error(err));
 
       });
@@ -105,17 +123,6 @@ function geocode(request) {
 
 window.initMap = initMap;
 
-//This is the Crime API fetch deal, unmodified
-// const options = {
-// 	method: 'GET',
-// 	headers: {
-// 		'X-RapidAPI-Key': '2566f44acbmshc353c19280ffd39p19e170jsn2c683f7c8010',
-// 		'X-RapidAPI-Host': 'crime-data-by-zipcode-api.p.rapidapi.com'
-// 	}
-// };
-
-// fetch('https://crime-data-by-zipcode-api.p.rapidapi.com/crime_data?zip=94109', options)
-// 	.then(response => response.json())
-// 	.then(response => console.log(response))
-// 	.catch(err => console.error(err));
+//<li>Property: ${data['Crime BreakDown'][0]['0']['Total Violent Crime']}</li>
+//<li>Other:</li>          
 
