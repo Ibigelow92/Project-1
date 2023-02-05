@@ -1,8 +1,84 @@
+// Modal
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+// Local Storage, Previous Searches
+var searchInput = document.querySelector('#inputText');
+var searchModal = document.querySelector('#myModal');
+var previousSearches = document.querySelector('#previous-searches');
+
+var searches = [];
+
+function renderSearches () {
+  previousSearches.innerHTML = "";
+
+  for (var i = 0; i < searches.length; i++) {
+    var search = searches[i];
+
+    var li = document.createElement("li");
+    li.textContent = search;
+    li.setAttribute("data-index", i);
+    
+  }
+}
+
+function init() {
+  var storedSearches = JSON.parse(localStorage.getItem("searches"));
+  if (storedSearches !== null) {
+    searches = storedSearches;
+  }
+
+  renderSearches();
+}
+
+function storeSearches() {
+  localStorage.setItem("searches", JSON.stringify(searches));
+}
+
+myModal.addEventListener("submit", function(event) {
+  event.preventDefault();
+  var inputText = searchInput.value.trim();
+
+  if(input ==="") {
+    return;
+  }
+
+  searches.push(input);
+  searchInput.value = "";
+
+  storeSearches();
+  renderSearches();
+
+});
+
+init();
+
+
+
+
+
+
+
 let map;
 let marker;
 let geocoder;
 let responseDiv;
 let response;
+
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -121,7 +197,9 @@ function geocode(request) {
     });
 }
 
+
 window.initMap = initMap;
+
 
 //<li>Property: ${data['Crime BreakDown'][0]['0']['Total Violent Crime']}</li>
 //<li>Other:</li>          
