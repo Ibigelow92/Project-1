@@ -3,6 +3,10 @@ var modal = document.getElementById("myModal");
 var btn = document.getElementById("myBtn");
 var span = document.getElementsByClassName("close")[0];
 btn.onclick = function() {
+  
+  var storedSearches = JSON.parse(localStorage.getItem("searches"));
+  console.log(storedSearches);
+  renderSearches(storedSearches);
   modal.style.display = "block";
 }
 
@@ -19,38 +23,51 @@ window.onclick = function(event) {
 // Local Storage, Previous Searches
 var searchInput = document.querySelector('#inputText');
 var searchModal = document.querySelector('#myModal');
-var previousSearches = document.querySelector('#previous-searches');
+
 
 var searches = [];
 
-function renderSearches () {
+function renderSearches (storedSearches) {
+  console.log('stored searches: ', storedSearches)
+  if (!storedSearches) {
+    storedSearches = [];
+  };
+  var previousSearches = document.querySelector('#previous-searches');
   previousSearches.innerHTML = "";
+  
 
-  for (var i = 0; i < searches.length; i++) {
-    var search = searches[i];
+  for (var i = 0; i < storedSearches.length; i++) {
+    var search = storedSearches[i];
 
     var li = document.createElement("li");
     li.textContent = search;
     li.setAttribute("data-index", i);
+    previousSearches.appendChild(li);
     
   }
 }
 
 function init() {
-  var storedSearches = JSON.parse(localStorage.getItem("searches"));
-  if (storedSearches !== null) {
-    searches = storedSearches;
-  }
+  
 
   renderSearches();
 }
 
 function storeSearches() {
-  localStorage.setItem("searches", JSON.stringify(searches));
+  var storedSearches = JSON.parse(localStorage.getItem("searches"));
+  if (!storedSearches){
+    storedSearches = [];
+  }
+  var newSearches = [...storedSearches, ...searches];
+  localStorage.setItem("searches", JSON.stringify(newSearches));
 }
 
 modal.addEventListener("submit", function(event) {
   event.preventDefault();
+  
+  // if (storedSearches !== null) {
+  //   searches = storedSearches;
+  // }
   var inputText = searchInput.value.trim();
   
   searches.push(searchInput.value);
@@ -96,6 +113,7 @@ function initMap() {
 
   inputText.type = "text";
   inputText.placeholder = "12345";
+  inputText.id = "inputText";
 
   const submitButton = document.createElement("input");
 
@@ -174,8 +192,10 @@ function initMap() {
       .catch(err => console.error(err));
 
       event.preventDefault();
-      searches.push(searchInput.value);
+      console.log(inputText);
+      searches.push(inputText.value);
       console.log(searches);
+      storeSearches();
 
       });
       clearButton.addEventListener("click", () => {
