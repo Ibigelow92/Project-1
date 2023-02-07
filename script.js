@@ -1,8 +1,105 @@
+// Modal
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+btn.onclick = function() {
+  
+  var storedSearches = JSON.parse(localStorage.getItem("searches"));
+  console.log(storedSearches);
+  renderSearches(storedSearches);
+  modal.style.display = "block";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+// Local Storage, Previous Searches
+var searchInput = document.querySelector('#inputText');
+var searchModal = document.querySelector('#myModal');
+
+
+var searches = [];
+
+function renderSearches (storedSearches) {
+  console.log('stored searches: ', storedSearches)
+  if (!storedSearches) {
+    storedSearches = [];
+  };
+  var previousSearches = document.querySelector('#previous-searches');
+  previousSearches.innerHTML = "";
+  
+
+  for (var i = 0; i < storedSearches.length; i++) {
+    var search = storedSearches[i];
+
+    var li = document.createElement("li");
+    li.textContent = search;
+    li.setAttribute("data-index", i);
+    previousSearches.appendChild(li);
+    
+  }
+}
+
+function init() {
+  
+
+  renderSearches();
+}
+
+function storeSearches() {
+  var storedSearches = JSON.parse(localStorage.getItem("searches"));
+  if (!storedSearches){
+    storedSearches = [];
+  }
+  var newSearches = [...storedSearches, ...searches];
+  localStorage.setItem("searches", JSON.stringify(newSearches));
+}
+
+modal.addEventListener("submit", function(event) {
+  event.preventDefault();
+  
+  // if (storedSearches !== null) {
+  //   searches = storedSearches;
+  // }
+  var inputText = searchInput.value.trim();
+  
+  searches.push(searchInput.value);
+  console.log(searches);
+
+  if(inputText ==="") {
+    return;
+  }
+
+  searches.push(inputText);
+  console.log(searches);
+  searchInput.value = "";
+
+  storeSearches();
+  renderSearches();
+
+});
+
+init();
+
+
+
+
+
+
+
 let map;
 let marker;
 let geocoder;
 let responseDiv;
 let response;
+
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -16,6 +113,7 @@ function initMap() {
 
   inputText.type = "text";
   inputText.placeholder = "12345";
+  inputText.id = "inputText";
 
   const submitButton = document.createElement("input");
 
@@ -51,10 +149,12 @@ function initMap() {
   map.addListener("click", (e) => {
     geocode({ location: e.latLng });
   });
+
   submitButton.addEventListener("click", () =>{
     geocode({ address: inputText.value })
     //This is my best attempt at modifying the crime API to our needs
     //
+  
     const crimeReportEL = document.getElementById("crime-data-p");
     //
     const options = {
@@ -87,8 +187,15 @@ function initMap() {
       </ul>
       `
       })
+
       //
       .catch(err => console.error(err));
+
+      event.preventDefault();
+      console.log(inputText);
+      searches.push(inputText.value);
+      console.log(searches);
+      storeSearches();
 
       });
       clearButton.addEventListener("click", () => {
@@ -121,7 +228,9 @@ function geocode(request) {
     });
 }
 
+
 window.initMap = initMap;
+
 
 //<li>Property: ${data['Crime BreakDown'][0]['0']['Total Violent Crime']}</li>
 //<li>Other:</li>          
