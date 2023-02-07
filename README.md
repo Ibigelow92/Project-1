@@ -14,7 +14,7 @@ Some potential future updates to the application include:  Safe Travels! would l
 
 As a traveler
 I WANT to view safety reports for multiple cities
-SO THAT I can plan a trip accordingly
+SO THAT I can plan a trip accordingly.
 
 ## Acceptance Criteria
 
@@ -40,11 +40,12 @@ To find the crime score data for an area, simply enter the Zip code for the area
 
 ### Screenshots:
 
-ADD SCREENSHOTS HERE!
+![Safe-Travels](Assets/Safe-Travels.png)
+![Search-Crime-Score](Assets/Search-crime-score.png)
 
 In addition, the application allows the user to review previously searched Zip codes (stored in local storage).
 
-ADD SCREENSHOT HERE!
+![Previous-Searches](Assets/Previous-Searches.png)
 
 ## Credits
 
@@ -55,9 +56,9 @@ Jaskaran Kaur https://github.com/jaskaur91,
 Frederick Dirige https://github.com/fdirige, 
 and Laura Hardy-Wilcox https://github.com/lhardywilcox.
 
-The maps used in the application are courtesy of the Google Geocode API, and the crime score information is courtesy of the Crime Score by Zip Code API.
+The maps used in the application are courtesy of the Google Geocode API, and the crime score information is courtesy of the Crime Score by Zip Code API.  The respective documentation for the APIs was referenced extensively during the creation of the API.
 
-ADD ANY REFERENCES TO TUTORIALS OR VIDEOS THAT HELPED WITH THE CONSTRUCTION OF OUR PROJECT HERE
+We were also assisted by our Instructor, Teaching Assistants, and Tutors during our project.  They answered A LOT of questions!
 
 ## License
 
